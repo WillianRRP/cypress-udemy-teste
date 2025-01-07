@@ -1,11 +1,13 @@
 /// <reference types="cypress"/>
 
 describe('Work with basic elements', () => {
- 
+    beforeEach(() => {
+        cy.visit('https://wcaquino.me/cypress/componentes.html')
+    })
      
      
      it("texto", () => {
-       cy.visit('https://wcaquino.me/cypress/componentes.html')
+      
  cy.get('body').should('contain','Nao cadastrado')
  cy.get('div').should('contain','Nao cadastrado')
  cy.get('#resultado').should('contain','Nao cadastrado')
@@ -14,7 +16,7 @@ describe('Work with basic elements', () => {
 
 })
     it("Links", () => {
-            cy.visit("https://wcaquino.me/cypress/componentes.html")
+           
         cy.reload()
         cy.get('[href="#"]').click()
         cy.get('#resultado').should('have.text','Voltou!')
@@ -25,7 +27,6 @@ describe('Work with basic elements', () => {
 
     })
     it('TextFields',() => {
-        cy.visit("https://wcaquino.me/cypress/componentes.html")
         cy.get('[data-cy="dataSobrenome"]').type('testezinho dos guri')
         cy.get('[data-cy="dataSobrenome"]').should('have.value', 'testezinho dos guri')
 
@@ -53,7 +54,6 @@ describe('Work with basic elements', () => {
     })
 
     it("RadioButton", () => {
-        cy.visit("https://wcaquino.me/cypress/componentes.html")
         cy.get('#formSexoMasc')
         .click()
         .should("be.checked")
@@ -66,6 +66,37 @@ describe('Work with basic elements', () => {
 
 
 })
+
+it.only("CheckBox", () => {
+    
+    cy.get('#formComidaFrango')
+    .click()
+    .should("be.checked")
+
+    cy.get('[name=formComidaFavorita]').click({multiple: true})
+
+    cy.get('#formComidaFrango').should("not.be.checked")
+    cy.get('#formComidaCarne').should("be.checked")
+ })
+
+
+ it.only("combo", () => {
+ cy.get('[data-test="dataEscolaridade"]')
+ .select('Doutorado')
+ .should('have.value', 'doutorado')
+
+ cy.get('[data-test="dataEscolaridade"]')
+ .select('1grauincomp')
+ .should('have.value', '1grauincomp')
+})
+
+
+ it.only("combo multiplo", () => {
+   
+
+    cy.get('[data-testid="dataEsportes"]').select(['Karate', 'futebol', 'nada'])
+   
+   })
 
 
 
