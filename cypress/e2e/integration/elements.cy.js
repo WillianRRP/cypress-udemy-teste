@@ -1,9 +1,12 @@
 /// <reference types="cypress"/>
 
 describe('Work with basic elements', () => {
+   
     beforeEach(() => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
     })
+
+   
      
      
      it("texto", () => {
@@ -95,6 +98,7 @@ it.only("CheckBox", () => {
    
 
     cy.get('[data-testid="dataEsportes"]').select(['Karate', 'futebol', 'nada'])
+
    
    })
 
