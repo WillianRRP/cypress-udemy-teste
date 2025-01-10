@@ -21,10 +21,7 @@ describe("Work with basic elements", () => {
   });
   it("TextFields", () => {
     cy.get('[data-cy="dataSobrenome"]').type("testezinho dos guri");
-    cy.get('[data-cy="dataSobrenome"]').should(
-      "have.value",
-      "testezinho dos guri"
-    );
+    cy.get('[data-cy="dataSobrenome"]').should("have.value", "testezinho dos guri");
 
     cy.get("#elementosForm\\:sugestoes")
       .type("Sugestão")
@@ -73,10 +70,6 @@ describe("Work with basic elements", () => {
   });
 
   it.only("combo multiplo", () => {
-    cy.get('[data-testid="dataEsportes"]').select([
-      "Karate",
-      "futebol",
-      "nada",
-    ]);
+    cy.get('[data-testid="dataEsportes"]').select(["Karate", "futebol", "nada",]);
   });
 });
