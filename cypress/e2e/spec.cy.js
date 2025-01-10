@@ -1,14 +1,10 @@
-describe('nada ', () => {
-  it('nada agr', () => {
+describe("nada ", () => {
+  it("nada agr", () => {
+    const soma = (a, b) => a + b;
 
-
-    const soma =(a,b) => a + b
-
-    console.log(soma(1,4))
-    
+    console.log(soma(1, 4));
   }),
-
-  it('teste log',() =>{
-    console.log('oi é...', this)
-  })
-})
+    it("teste log", () => {
+      console.log("oi é...", this);
+    });
+});
