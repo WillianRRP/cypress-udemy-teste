@@ -25,5 +25,27 @@ describe('Work with basic elements', () => {
         .type('teste')
         
     })
+    it.only('uso do find', () => {
+        cy.get('#buttonList').click()
+        cy.get('#lista li')
+        .find('span')
+        .should('contain', 'Item 1')
+        
+        cy.get('#lista li')
+        .should('contain', 'Item 2')
+
+
+        cy.get('#buttonListDOM').click()
+        cy.get('#lista li')
+        .find('span')
+        .should('contain', 'Item 1')
+
+        cy.get('#lista li')
+        .should('contain', 'Item 2')
+        
+        
+        
+        
+    })
 
 })
