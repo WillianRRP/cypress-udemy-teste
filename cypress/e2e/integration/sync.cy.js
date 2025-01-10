@@ -25,7 +25,7 @@ describe('Work with basic elements', () => {
         .type('teste')
         
     })
-    it.only('uso do find', () => {
+    it('uso do find', () => {
         cy.get('#buttonList').click()
         cy.get('#lista li')
         .find('span')
@@ -44,8 +44,30 @@ describe('Work with basic elements', () => {
         .should('contain', 'Item 2')
         
         
-        
-        
+   
+    })
+    it.only('uso do TimeoOut', () => {
+       
+           // cy.get('#buttonDelay').click()
+           // cy.get('#novoCampo').should('exist')
+         
+         //cy.get('#buttonListDOM').click()
+         //cy.wait(5000)
+         //cy.get('#lista li span', { timeout: 50000 })
+          //.should('contain', 'Item 2')
+          
+         //cy.get('#buttonListDOM').click()
+         //cy.wait(5000)
+         //cy.get('#lista li span', { timeout: 50000 })
+          //.should('contain', 'Item 2')
+
+         cy.get('#buttonListDOM').click()
+         cy.get('#lista li span')
+          .should('have.length', 1)
+          cy.get('#lista li span')
+          .should('have.length', 2)
+
+   
     })
 
 })
