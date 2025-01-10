@@ -29,7 +29,7 @@ describe("Work with basic elements", () => {
 
     cy.get("#lista li").should("contain", "Item 2");
   });
-  it.only("uso do TimeoOut", () => {
+  it("uso do TimeoOut", () => {
     // cy.get('#buttonDelay').click()
     // cy.get('#novoCampo').should('exist')
 
@@ -46,5 +46,28 @@ describe("Work with basic elements", () => {
     cy.get("#buttonListDOM").click();
     cy.get("#lista li span").should("have.length", 1);
     cy.get("#lista li span").should("have.length", 2);
+  });
+
+  it.only("Click retry", () => {
+    cy.get('#buttonCount')
+    .click()
+    .should('have.value', '1')
+  });
+  it.only('Should vs Then', () => {
+    cy.get('#buttonListDOM').then($el => {
+        // .should('have.length', 1)
+        // console.log($el)
+        expect($el).to.have.length(1)
+        cy.get('#buttonList')
+    })
+
+    cy.get("#buttonListDOM").should($el => {
+      //.should('have.value', '1')
+      //console.log($el)
+    expect($el).to.have.length(1)
+    return 2
+    }).and('have.id', 'buttonListDOM')
+    
+    
   });
 });
