@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cypress:open":"cypress open",
-    "test:run": "cypress run"
+    "cypress:run": "cypress run"
   },
   "author": "",
   "license": "ISC",
