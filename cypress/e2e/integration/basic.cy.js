@@ -3,7 +3,7 @@
 const { title } = require("process");
 
 describe("Cypress basic", () => {
-  it.only("should visit a page and assert", () => {
+  it("should visit a page and assert", () => {
     cy.visit("https://wcaquino.me/cypress/componentes.html");
 
     cy.title()
