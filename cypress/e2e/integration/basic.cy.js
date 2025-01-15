@@ -18,7 +18,7 @@ describe("Cypress basic", () => {
 
       cy.title().then(title => {
           console.log(title)
-s
+
           cy.get('#formNome').type(title)
 
           syncTitle = title
