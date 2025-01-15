@@ -15,18 +15,23 @@ describe("Cypress basic", () => {
       .and("contain", "Campo");
       
       let syncTitle
+
       cy.title().then(title => {
-        console.log(title)
-        cy.get('#formNome').type(title)
-        let syncTitle = title
-      })
-      cy.get('[data-cy="dataSobrenome"]').then($el => {
-        $el.val(syncTitle)
+          console.log(title)
+s
+          cy.get('#formNome').type(title)
+
+          syncTitle = title
       })
 
-       cy.get('#elementosForm\\:sugestoes').then($el => {
-        cy.wrap($el).type(syncTitle)
-        })
+      cy.get('[data-cy=dataSobrenome]').then($el => {
+          $el.val(syncTitle)
+      })
+
+      cy.get('#elementosForm\\:sugestoes').then($el => {
+          cy.wrap($el).type(syncTitle)
+      })
+
 
         
 
