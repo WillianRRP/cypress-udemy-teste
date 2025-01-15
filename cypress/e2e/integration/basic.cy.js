@@ -13,10 +13,23 @@ describe("Cypress basic", () => {
     cy.title()
       .should("be.equal", "Campo de Treinamento")
       .and("contain", "Campo");
-
+      
+      let syncTitle
       cy.title().then(title => {
         console.log(title)
+        cy.get('#formNome').type(title)
+        let syncTitle = title
       })
+      cy.get('[data-cy="dataSobrenome"]').then($el => {
+        $el.val(syncTitle)
+      })
+
+       cy.get('#elementosForm\\:sugestoes').then($el => {
+        cy.wrap($el).type(syncTitle)
+        })
+
+        
+
   });
   it("should find and interact with and element", () => {
     cy.visit("https://wcaquino.me/cypress/componentes.html");

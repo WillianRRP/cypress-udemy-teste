@@ -2,9 +2,9 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-     video: true, 
+     video: false, 
      videoCompression: 32,
-     videoUploadOnPasses: false, 
+     videoUploadOnPasses: true, 
      videosFolder: "cypress/videos",
 
     setupNodeEvents(on, config) {
