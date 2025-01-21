@@ -16,7 +16,7 @@ describe("Work with popup", () => {
     cy.get("#buttonPopUp").click();
     cy.get("@winOpen").should("be.called");
   });
-  describe.only("With links...", () => {
+  describe("With links...", () => {
     beforeEach(() => {
       cy.visit("https://wcaquino.me/cypress/componentes.html");
     });
