@@ -9,13 +9,14 @@ describe("Work with alerts", () => {
     cy.reload();
   });
 
-  it("alert", () => {
-    cy.get("#alert").click();
-    cy.on("window:alert", (msg) => {
-      console.log(msg);
-      //expect(msg).to.be.equal('sadaskdj')
-      expect(msg).to.be.equal("Alert Simples");
-    });
+  it.only("alert", () => {
+  //  cy.get("#alert").click();
+  //  cy.on("window:alert", (msg) => {
+  //    console.log(msg);
+  //    //expect(msg).to.be.equal('sadaskdj')
+  //    expect(msg).to.be.equal("Alert Simples");
+  //  });
+  cy.ClickAlert("#alert", "Alert Simples")
   });
   it("alert com mock", () => {
     const stub = cy.stub().as("alerta");
