@@ -4,7 +4,7 @@ module.exports = defineConfig({
   e2e: {
      video: false, 
      videoCompression: 32,
-     videoUploadOnPasses: true, 
+     videoUploadOnPasses: false, 
      videosFolder: "cypress/videos",
 
     setupNodeEvents(on, config) {

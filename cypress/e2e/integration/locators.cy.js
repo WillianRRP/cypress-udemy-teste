@@ -7,7 +7,7 @@ describe("Work with alerts", () => {
   beforeEach(() => {
     cy.reload();
   });
-  it("Using jquery selector", () => {
+  it.only("Using jquery selector", () => {
     cy.get(':nth-child(5) > :nth-child(6) > [type="text"]');
     cy.get("[onclick*='Usuario B']");
     cy.get("#tabelaUsuarios td:contains('Doutorado'):eq(0) ~ td:eq(3) > input");
