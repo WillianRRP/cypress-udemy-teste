@@ -1,0 +1,44 @@
+para abrir o cypress é necessário colocar um 
+npm run cypress:open
+
+para rodar o cypress é necessário colocar um 
+npm run cypress:run
+
+
+
+para instalar o cy
+npm install cypress 
+npm init
+cypress
+não usar comandos ex: ".click" depois do .then
+
+
+
+codesnap tira print no código
+Abrir o Command Palette do VS Code
+Digitar CodeSnap na caixa de busca
+
+duplicar linha shift alt down
+
+
+para pular para linha de baixo é ctrl del
+
+quando tiver ":" é necessário colocar// 
+exemplo cy.get('#elementosForm\\:sugestoes').then($el => {
+
+
+para verificar a propriedade .should('have.value') tem que pegar o valor
+
+
+
+Quando é criado um locator é melhor dividir em escopos
+
+
+quando o xpath foi colocado no arquivo locators.js foi necessário fazer isso  
+
+FN_XP_BTN_ALTERAR: nome => `//table//td[contains(., '${nome}')]/..//i[@class='far fa-edit']`
+
+
+
+
+
