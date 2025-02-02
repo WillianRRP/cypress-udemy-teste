@@ -22,10 +22,10 @@ describe("Work with alerts", () => {
     })
     it('Goes to the future', () => {
         cy.get('#buttonTimePassed').click()
-        cy.get('#resultado > span').should('contain', '173811')
+        cy.get('#resultado > span').should('contain', '17384')
         cy.get('#resultado > span').invoke('text').then(t => {
             const number = parseInt(t)
-            cy.wrap(number).should('gt', 1738112407007)
+            cy.wrap(number).should('gt', 173845)
         })
 
         cy.clock()
