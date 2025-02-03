@@ -30,4 +30,16 @@ describe('Should test at a funcional level', () => {
    cy.get(loc.MENSSAGE).should('contain', 'code 400');
    
   });
+  it('should  creat a transaction', () => {
+  cy.get(loc.MENU.MOVIENTACAO).click()
+
+  cy.get(loc.MOVIENTACAO.DESCRICAO).type('Desc')
+  cy.get(loc.MOVIENTACAO.VALOR).type('123')
+  cy.get(loc.MOVIENTACAO.INTERESSADO).type('joaozinho')
+  cy.get(loc.MOVIENTACAO.STATUS).click()
+  cy.get(loc.MOVIENTACAO.BTN_SALVAR).click()
+  cy.get(loc.MENSSAGE).should('contain', 'sucesso')
+  cy.get('.list-group > li').should('have.length', 7)
+  cy.xpath(loc.EXTRATO.FN_XP_BUSCA_ELEMENTO('Desc', '123')).should('exist')
+  });
 });
