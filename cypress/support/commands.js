@@ -37,7 +37,7 @@ Cypress.Commands.add('login',(user, passwd) => {
     cy.get(loc.LOGIN.USER).type("a@a");
     cy.get(loc.LOGIN.PASSWORD).type("a");
     cy.get(loc.LOGIN.BTN_LOGIN).click();
-    cy.get(loc.MENSSAGE).should("contain", "Bem vindo");
+    cy.get(loc.MESSAGE).should("contain", "Bem vindo");
 })
 Cypress.Commands.add('resetApp', () =>{
     cy.get(loc.MENU.SETTINGS).click()
