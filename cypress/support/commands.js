@@ -67,3 +67,18 @@ Cypress.Commands.add('resetRest', () =>{
   }).its('status').should('be.equal', 200)
   
 })
+Cypress.Commands.add('getAccountByName', name =>{
+  cy.getToken('testewp@a', 'a').then(token =>{
+  cy.request({
+    method: 'GET',
+    url: '/contas',
+    headers: { Authorization: `JWT ${token}`},
+    qs:{
+      nome: name
+    }
+
+  }).then(res =>{
+    return res.body[0].id
+  })
+})
+})
