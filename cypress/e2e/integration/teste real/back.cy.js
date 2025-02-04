@@ -12,6 +12,7 @@ describe('Should test at a funcional level', () => {
       token = tkn 
 
     })
+    cy.resetRest()
     
   });
 
@@ -21,7 +22,7 @@ describe('Should test at a funcional level', () => {
     cy.request({
       method: 'POST',
       headers: { Authorization: `JWT ${token}`},
-      url: 'https://barrigarest.wcaquino.me/contas',
+      url: '/contas',
       body:{
         nome: 'Conta de teste via rest 12'
   
