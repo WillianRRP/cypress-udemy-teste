@@ -20,6 +20,8 @@ describe("Work with alerts", () => {
         cy.get('#buttonNow').click()
         cy.get('#resultado > span').should('contain','28/01/2025')
     })
+
+    //para este teste funcionar tem que ficar alterando a linha 27 e 30
     it('Goes to the future', () => {
         cy.get('#buttonTimePassed').click()
         cy.get('#resultado > span').should('contain', '17384')
