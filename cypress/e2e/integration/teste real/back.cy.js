@@ -84,6 +84,12 @@ describe("Should test at a funcional level", () => {
     cy.get("@response").its("status").should("be.equal", 201);
     cy.get("@response").its("body.id").should("exist");
   });
-  it("should  get balance", () => {});
+  it.only("should  get balance", () => {
+    cy.request({
+      method: "GET",
+      url: "/saldo",
+      headers: { Authorization: `JWT ${token}` },
+    }).then(res => {})
+  });
   it("should remove a transaction", () => {});
 });
