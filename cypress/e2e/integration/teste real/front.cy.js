@@ -3,6 +3,9 @@ import loc from '../../../support/locators';
 import '../../../support/commandsContas';
 
 describe('Should test at a funcional level', () => {
+  after(() => {
+    cy.clearLocalStorage()
+})
   beforeEach(() => {
     cy.intercept({
       method: 'POST',
@@ -31,12 +34,38 @@ describe('Should test at a funcional level', () => {
       ]
   ).as('saldo')
     cy.login('a@a', 'senha errada');
-    cy.resetApp()
+    //cy.resetApp()
     cy.get(loc.MENU.HOME).click()
   });
 
-  it('should create account', () => {
+  it.only('should create account', () => {
+    cy.intercept({
+      method: 'GET',
+      url: '/contas'},
+      [
+        { id: 1, nome: 'Carteira', visivel: true, usuario_id: 1 },
+        { id: 2, nome: 'Banco', visivel: true, usuario_id: 1 },
+      ]
+  ).as('contas')
+
+  cy.intercept({
+    method: 'POST',
+    url: '/contas'
+  },
+  { id: 3, nome: 'Conta de teste', visivel: true, usuario_id: 1 }
+  )
     cy.acessaMenuConta();
+
+    cy.intercept({
+      method: 'GET',
+      url: '/contas'},
+      [
+        { id: 1, nome: 'Carteira', visivel: true, usuario_id: 1 },
+        { id: 2, nome: 'Banco', visivel: true, usuario_id: 1 },
+        { id: 3, nome: 'Conta de teste', visivel: true, usuario_id: 1 },
+      ]
+  ).as('contasSave')
+  
     cy.InserirConta('Conta inserida');
     cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso');
   });
