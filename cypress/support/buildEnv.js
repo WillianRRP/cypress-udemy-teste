@@ -34,6 +34,8 @@ const buildEnv = () =>{
           { id: 2, nome: 'Banco', visivel: true, usuario_id: 1 },
         ]
     ).as('contas')
+
+    
 }
 
 export default buildEnv
