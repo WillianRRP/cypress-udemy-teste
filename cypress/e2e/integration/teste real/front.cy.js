@@ -1,52 +1,20 @@
 /// <reference types='cypress'/>
 import loc from '../../../support/locators';
 import '../../../support/commandsContas';
+import buildEnv from '../../../support/buildEnv';
 
 describe('Should test at a funcional level', () => {
   after(() => {
     cy.clearLocalStorage()
 })
   beforeEach(() => {
-    cy.intercept({
-      method: 'POST',
-      url: '/signin'
-  },
-      {
-          id: 1000,
-          nome: 'Usuario falso',
-          token: 'Uma string muito grande que nao deveria ser aceito mas na verdade, vai'
-      }
-  ).as('signin')
-
-  cy.intercept({
-      method: 'GET',
-      url: '/saldo'},
-      [{
-          conta_id: 999,
-          conta: "Carteira",
-          saldo: "100.00"
-      },
-      {
-          conta_id: 9909,
-          conta: "Banco",
-          saldo: "10000000.00"
-      },
-      ]
-  ).as('saldo')
+    buildEnv()
     cy.login('a@a', 'senha errada');
     //cy.resetApp()
     cy.get(loc.MENU.HOME).click()
   });
 
   it.only('should create account', () => {
-    cy.intercept({
-      method: 'GET',
-      url: '/contas'},
-      [
-        { id: 1, nome: 'Carteira', visivel: true, usuario_id: 1 },
-        { id: 2, nome: 'Banco', visivel: true, usuario_id: 1 },
-      ]
-  ).as('contas')
 
   cy.intercept({
     method: 'POST',
@@ -69,25 +37,41 @@ describe('Should test at a funcional level', () => {
     cy.InserirConta('Conta inserida');
     cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso');
   });
-  it('should update an account', () => {
-    cy.acessaMenuConta();
-    cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Conta para alterar')).click();
-    cy.get(loc.CONTAS.NOME).clear().type('Conta alterada');
-    cy.get(loc.CONTAS.BTN_SALVAR).click();
-    cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso');
-  });
-
-  it('should not creat an account with same name', () => {
+  it.only('should update an account', () => {
+  cy.intercept({
+    method: 'PUT',
+    url: '/contas/**'},
+    [
+      { id: 1, nome: 'Conta alterada', visivel: true, usuario_id: 1 },
+    ]
+  )
+// cy.get(':nth-child(7) > :nth-child(2) > .fa-edit')
+cy.acessaMenuConta()
+cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Banco')).click()
+cy.get(loc.CONTAS.NOME)
+  .clear()
+  .type('Conta alterada')
+cy.get(loc.CONTAS.BTN_SALVAR).click()
+cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso')
+})
+  it.only('should not creat an account with same name', () => {
+    cy.intercept({
+      method: 'POST',
+      url: '/contas'
+  }, { 
+      statusCode: 400,
+      body: {"error": "Já existe uma conta com esse nome!" }
+  }).as('saveContaMesmoNome')
+  
     cy.acessaMenuConta()
+
    cy.get(loc.CONTAS.NOME).type('Conta mesmo nome')
-   cy.get(loc.CONTAS.BTN_SALVAR).click();
    cy.get(loc.CONTAS.BTN_SALVAR).click();
    cy.get(loc.MESSAGE).should('contain', 'code 400');
    
   });
   it('Should create a transaction', () => {
     cy.get(loc.MENU.MOVIMENTACAO).click();
-
     cy.get(loc.MOVIMENTACAO.DESCRICAO).type('Desc')
     cy.get(loc.MOVIMENTACAO.VALOR).type('123')
     cy.get(loc.MOVIMENTACAO.INTERESSADO).type('Inter')
