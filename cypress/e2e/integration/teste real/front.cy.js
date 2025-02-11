@@ -14,7 +14,7 @@ describe('Should test at a funcional level', () => {
     cy.get(loc.MENU.HOME).click()
   });
 
-  it.only('should create account', () => {
+  it('should create account', () => {
 
   cy.intercept({
     method: 'POST',
@@ -37,7 +37,7 @@ describe('Should test at a funcional level', () => {
     cy.InserirConta('Conta inserida');
     cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso');
   });
-  it.only('should update an account', () => {
+  it('should update an account', () => {
   cy.intercept({
     method: 'PUT',
     url: '/contas/**'},
@@ -54,7 +54,7 @@ cy.get(loc.CONTAS.NOME)
 cy.get(loc.CONTAS.BTN_SALVAR).click()
 cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso')
 })
-  it.only('should not creat an account with same name', () => {
+  it('should not creat an account with same name', () => {
     cy.intercept({
       method: 'POST',
       url: '/contas'
@@ -70,16 +70,42 @@ cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso')
    cy.get(loc.MESSAGE).should('contain', 'code 400');
    
   });
-  it('Should create a transaction', () => {
+  it.only('Should create a transaction', () => {
+    cy.intercept({
+      method: 'POST',
+      url: '/transacoes'},
+      [
+        {
+          "id": 2234692,
+          "descricao": "desc",
+          "envolvido": "joaozinho",
+          "observacao": null,
+          "tipo": "REC",
+          "data_transacao": "2025-02-10T03:00:00.000Z",
+          "data_pagamento": "2025-02-10T03:00:00.000Z",
+          "valor": "2323.00",
+          "status": false,
+          "conta_id": 2379404,
+          "usuario_id": 58539,
+          "transferencia_id": null,
+          "parcelamento_id": null
+      }
+      ]
+    )
+    cy.intercept({
+      method: 'GET',
+      url: '/extrato/**'
+  },
+  {fixture: 'movimentacaoSalva2.json'}
+)
     cy.get(loc.MENU.MOVIMENTACAO).click();
     cy.get(loc.MOVIMENTACAO.DESCRICAO).type('Desc')
     cy.get(loc.MOVIMENTACAO.VALOR).type('123')
     cy.get(loc.MOVIMENTACAO.INTERESSADO).type('Inter')
-    cy.get(loc.MOVIMENTACAO.CONTA).select('Conta para movimentacoes')
+    cy.get(loc.MOVIMENTACAO.CONTA).select('Carteira')
     cy.get(loc.MOVIMENTACAO.STATUS).click()
     cy.get(loc.MOVIMENTACAO.BTN_SALVAR).click()
     cy.get(loc.MESSAGE).should('contain', 'sucesso')
-
     cy.get(loc.EXTRATO.LINHAS).should('have.length', 7)
     cy.xpath(loc.EXTRATO.FN_XP_BUSCA_ELEMENTO('Desc', '123')).should('exist')
 })
