@@ -4,7 +4,7 @@ import '../../../support/commandsContas';
 
 describe('Should test at a funcional level', () => {
   beforeEach(() => {
-    cy.login('a@a', 'a');
+    cy.login('testewp@a', 'a');
     cy.resetApp()
     cy.get(loc.MENU.HOME).click()
   });
