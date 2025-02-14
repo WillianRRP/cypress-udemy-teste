@@ -181,9 +181,50 @@ cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso')
     cy.get(loc.MENU.HOME).click()
     cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Carteira')).should('contain', '100')
   });
-  it.only('should remove a transaction', () => {
+  it('should remove a transaction', () => {
+    cy.intercept({
+      method: 'DELETE',
+      url: '/transacoes/**'
+    }, 
+    {statusCode: 204}
+).as('del')
     cy.get(loc.MENU.EXTRATO).click()
     cy.xpath(loc.EXTRATO.FN_XP_REMOVER_ELEMENTO('Movimentacao para exclusao')).click()
     cy.get(loc.MESSAGE).should('contain', 'sucesso')
   });
+  it.only('should validate to date send create account', () => {
+
+    const reqStub = cy.stub()
+    cy.intercept({
+            method: 'POST',
+            url: '/contas'
+        },
+        (req) => {
+            console.log(req.headers)
+            expect(req.body.nome).to.be.empty
+            expect(req.headers).to.have.property('authorization')
+
+            req.reply({id: 3, nome: 'Conta de teste', visivel: true, usuario_id: 1 })
+        }
+    ).as('saveConta')
+
+    cy.acessaMenuConta()
+
+    cy.intercept({
+            method: 'GET',
+            url: '/contas'
+        },
+        [
+            { id: 1, nome: 'Carteira', visivel: true, usuario_id: 1 },
+            { id: 2, nome: 'Banco', visivel: true, usuario_id: 1 },
+            { id: 3, nome: 'Conta de teste', visivel: true, usuario_id: 1 },
+        ]
+    ).as('contasSave')
+
+    cy.InserirConta('{CONTROL}')
+    //cy.wait('@saveConta').its('request.body.nome').should('not.be.empty')
+    
+    cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
+})
+
 });
